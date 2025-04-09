@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from "astro:content";
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const products = await getCollection("products");
+  return products.map((product) => ({
+    params: { productId: product.id },
+    props: { product },
+  }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { product } = Astro.props;
+const { Content } = await render(product);
+---
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <a href="/">Home</a> > Products > Catégorie du produit > Produit
+
+    <h1>{product.data.title}</h1>
+    <img src={product.data.picture} />
+    <p>{product.data.price}<strong>Touche add to cart</strong></p>
+    <div>
+      <h2>Materials</h2>
+      {product.data.materials}
+      <h2>Description</h2>
+      {product.data.description}
+    </div>
+    <div>
+      <h2>Reviews</h2>
+      <img src="" />
+      <div>Insert review 1</div>
+    </div>
+    <div>
+      <h2>Other products</h2>
+      <img src="" />
+    </div>
+  </body>
+</html>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+
+  html {
+    background-color: rgb(255, 246, 233);
+    font-family: "EB Garamond", serif;
+  }
+  img {
+    max-width: 50%;
+    margin: auto;
+    display: block;
+  }
+</style>
