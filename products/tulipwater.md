@@ -1,5 +1,5 @@
 ---
-title: Bottle holder
+title: Tulip water
 price: 20 boulards
 picture: /Bottle-holder.jpeg
 materials: acrilyc yarn
