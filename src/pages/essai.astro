@@ -1,0 +1,14 @@
+<button id="cart-button"> Add to cart </button>
+<div id="button-text">Add this product to your cart to get a dopamine shot ! </div>
+
+<script>
+    const cartButton = document.getElementById("cart-button")
+    const buttonText = document.getElementById("button-text")
+
+    cartButton.addEventListener("click", (event) => {
+        console.log("j'ai cliquéç!!!!")
+        buttonText.innerHTML = "Product added to your cart ! Do you want to continue your lil shopping session or just pay now ??" ; 
+    })
+    
+</script>
+

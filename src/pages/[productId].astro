@@ -14,6 +14,7 @@ const { Content } = await render(product);
 ---
 
 <html>
+
   <head>
     <meta charset="utf-8" />
   </head>
@@ -22,7 +23,9 @@ const { Content } = await render(product);
 
     <h1>{product.data.title}</h1>
     <img src={product.data.picture} />
-    <p>{product.data.price}<strong>Touche add to cart</strong></p>
+    <p>{product.data.price}</p>
+    <p> <button id="cart-button"> Add to cart </button>
+      <div id="button-text">Add this product to your cart to get a dopamine shot ! </div> </p>
     <div>
       <h2>Materials</h2>
       {product.data.materials}
@@ -54,3 +57,14 @@ const { Content } = await render(product);
     display: block;
   }
 </style>
+
+<script>
+  const cartButton = document.getElementById("cart-button")
+  const buttonText = document.getElementById("button-text")
+
+  cartButton.addEventListener("click", (event) => {
+      console.log("Savais tu qu'il y a " + 60 * 60 + " secondes dans une heure?")
+      buttonText.innerHTML = "Product added to your cart ! Do you want to continue your lil shopping session or just pay now ??" ; 
+  })
+  
+</script>
