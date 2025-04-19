@@ -1,5 +1,7 @@
 ---
+import Layout from "../components/Layout.astro";
 import { getCollection, render } from "astro:content";
+
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const products = await getCollection("products");
@@ -13,44 +15,36 @@ const { product } = Astro.props;
 const { Content } = await render(product);
 ---
 
-<html>
+<Layout>
+  <a href="/">Home</a> > Products > Catégorie du produit > Produit
 
-  <head>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <a href="/">Home</a> > Products > Catégorie du produit > Produit
-
-    <h1>{product.data.title}</h1>
-    <img src={product.data.picture} />
-    <p>{product.data.price}</p>
-    <p> <button id="cart-button"> Add to cart </button>
-      <div id="button-text">Add this product to your cart to get a dopamine shot ! </div> </p>
-    <div>
-      <h2>Materials</h2>
-      {product.data.materials}
-      <h2>Description</h2>
-      {product.data.description}
+  <h1>{product.data.title}</h1>
+  <img src={product.data.picture} />
+  <p>{product.data.price}</p>
+  <p>
+    <button id="cart-button"> Add to cart </button>
+    <div id="button-text">
+      Add this product to your cart to get a dopamine shot !
     </div>
-    <div>
-      <h2>Reviews</h2>
-      <img src="" />
-      <div>Insert review 1</div>
-    </div>
-    <div>
-      <h2>Other products</h2>
-      <img src="" />
-    </div>
-  </body>
-</html>
+  </p>
+  <div>
+    <h2>Materials</h2>
+    {product.data.materials}
+    <h2>Description</h2>
+    {product.data.description}
+  </div>
+  <div>
+    <h2>Reviews</h2>
+    <img src="" />
+    <div>Insert review 1</div>
+  </div>
+  <div>
+    <h2>Other products</h2>
+    <img src="" />
+  </div>
+</Layout>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
-
-  html {
-    background-color: rgb(255, 246, 233);
-    font-family: "EB Garamond", serif;
-  }
   img {
     max-width: 50%;
     margin: auto;
@@ -59,12 +53,12 @@ const { Content } = await render(product);
 </style>
 
 <script>
-  const cartButton = document.getElementById("cart-button")
-  const buttonText = document.getElementById("button-text")
+  const cartButton = document.getElementById("cart-button");
+  const buttonText = document.getElementById("button-text");
 
   cartButton.addEventListener("click", (event) => {
-      console.log("Savais tu qu'il y a " + 60 * 60 + " secondes dans une heure?")
-      buttonText.innerHTML = "Product added to your cart ! Do you want to continue your lil shopping session or just pay now ??" ; 
-  })
-  
+    console.log("Savais tu qu'il y a " + 60 * 60 + " secondes dans une heure?");
+    buttonText.innerHTML =
+      "Product added to your cart ! Do you want to continue your lil shopping session or just pay now ??";
+  });
 </script>

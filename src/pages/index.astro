@@ -1,18 +1,69 @@
 ---
 import { getCollection } from "astro:content";
+import Layout from "../components/Layout.astro";
 const products = await getCollection("products");
 ---
 
-<h1>Crotch Eating</h1>
+<Layout>
+  <h1>Crotch Eating</h1>
 
-<div>Here you are, right where you need to be</div>
+  <div>Here you are, right where you need to be</div>
+  <a href="https://www.youtube.com/watch?v=a-Zp0YimAyo">
+    <img class="kitty" src="https://placecats.com/300/200" /></a
+  >
 
-<ul>
-  {
-    products.map((product) => (
-      <li>
-        <a href={"/" + product.id}>{product.data.title}</a>
-      </li>
-    ))
+  <div class="product-grid">
+    {
+      products.map((product) => (
+        <a class="product-card" href={product.id}>
+          <img src={product.data.picture} />
+          <div class="product-title"> {product.data.title} </div>
+        </a>
+      ))
+    }
+  </div>
+</Layout>
+
+<style>
+  html {
+    --background: #ffffff;
   }
-</ul>
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .product-grid img {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  .product-card:hover img {
+    filter: opacity(0.8);
+  }
+  .product-card {
+    position: relative;
+  }
+  .product-title {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: larger;
+    font-weight: 700;
+    color: var(--background);
+    text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  }
+  .product-card:hover .product-title {
+    display: block;
+  }
+  img.kitty {
+    max-width: 90px;
+    border-radius: 6px;
+    aspect-ratio: 3.5 / 3;
+    object-fit: cover;
+  }
+</style>
