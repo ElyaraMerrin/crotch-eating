@@ -4,34 +4,33 @@ import { getCollection, render } from "astro:content";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const products = await getCollection("products");
-  return products.map((product) => ({
-    params: { productId: product.id },
-    props: { product },
+  const patterns = await getCollection("patterns");
+  return patterns.map((pattern) => ({
+    params: { patternId: pattern.id },
+    props: { pattern },
   }));
 }
 // 2. For your template, you can get the entry directly from the prop
-const { product } = Astro.props;
-const { Content } = await render(product);
+const { pattern } = Astro.props;
+const { Content } = await render(pattern);
 ---
 
 <Layout>
-  <a href="/">Home</a> > Products > Catégorie du produit > Produit
+  <a href="/">Home</a> > Patterns > Insert pattern category > Pattern
 
-  <h1>{product.data.title}</h1>
-  <img src={product.data.picture} />
-  <p>{product.data.price}</p>
+  <h1>{pattern.data.title}</h1>
+  <img src={pattern.data.picture} />
+  <p>{pattern.data.price}</p>
   <p>
     <button id="cart-button"> Add to cart </button>
     <div id="button-text">
-      Add this product to your cart to get a dopamine shot !
+      <p>{pattern.data.button}</p>
     </div>
   </p>
   <div>
-    <h2>Materials</h2>
-    {product.data.materials}
     <h2>Description</h2>
-    {product.data.description}
+    <p><strong>Level : </strong> {pattern.data.level}</p>
+    {pattern.data.description}
   </div>
   <div>
     <h2>Reviews</h2>
@@ -39,7 +38,7 @@ const { Content } = await render(product);
     <div>Insert review 1</div>
   </div>
   <div>
-    <h2>Other products</h2>
+    <h2>Other patterns</h2>
     <img src="" />
   </div>
 </Layout>
@@ -61,8 +60,12 @@ const { Content } = await render(product);
       console.log(
         "Savais tu qu'il y a " + 60 * 60 + " secondes dans une heure?"
       );
-      buttonText.innerHTML =
-        "Product added to your cart ! Do you want to continue your lil shopping session or just pay now ??";
+    });
+    cartButton.addEventListener("click", (event) => {
+      window.open(
+        "https://www.tiktok.com/@carlota.fresa/video/7181777306094996741",
+        "_blank"
+      );
     });
   }
 </script>

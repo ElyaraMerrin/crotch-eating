@@ -15,6 +15,19 @@ const products = defineCollection({
     description: z.string(),
   }),
 });
+const patterns = defineCollection ({
+  loader: glob({ pattern: "**/*.md", base: "./patterns"}), 
+  schema: z.object({
+    title: z.string(),
+    price: z.string(),
+    picture: z.string(),
+    level: z.string(), 
+    description: z.string(),
+    button: z.string().optional(),
+
+  })
+})
+
 
 // 4. Export a single `collections` object to register your collection(s)
-export const collections = { products };
+export const collections = { products, patterns };
