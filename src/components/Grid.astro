@@ -1,0 +1,53 @@
+---
+interface Props {
+  collectionName: "products" | "patterns";
+}
+const { collectionName } = Astro.props;
+
+import { getCollection } from "astro:content";
+const collection = await getCollection(collectionName);
+---
+
+<div class="items-grid">
+  {
+    collection.map((collection) => (
+      <a class="item-card" href={collection.id}>
+        <img src={collection.data.picture} />
+        <div class="item-title"> {collection.data.title} </div>
+      </a>
+    ))
+  }
+</div>
+<style>
+  .items-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .items-grid img {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  .item-card:hover img {
+    filter: opacity(0.8);
+  }
+  .item-card {
+    position: relative;
+  }
+  .item-title {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: larger;
+    font-weight: 700;
+    color: white;
+    text-shadow: rgb(0, 0, 0) 1px 0 10px;
+  }
+  .item-card:hover .item-title {
+    display: block;
+  }
+</style>

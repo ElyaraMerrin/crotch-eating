@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
+import Grid from "../components/Grid.astro";
 const products = await getCollection("products");
 const patterns = await getCollection("patterns");
 ---
@@ -12,65 +13,13 @@ const patterns = await getCollection("patterns");
   <a href="https://www.youtube.com/watch?v=a-Zp0YimAyo">
     <img class="kitty" src="https://placecats.com/300/200" /></a
   >
-
-  <div class="items-grid">
-    {
-      products.map((product) => (
-        <a class="item-card" href={product.id}>
-          <img src={product.data.picture} />
-          <div class="item-title"> {product.data.title} </div>
-        </a>
-      ))
-    }
-  </div>
-  <div class="items-grid">
-    {
-      patterns.map((pattern) => (
-        <a class="item-card" href={pattern.id}>
-          <img src={pattern.data.picture} />
-          <div class="item-title"> {pattern.data.title} </div>
-        </a>
-      ))
-    }
-  </div>
+  <div>Items</div>
+  <Grid collectionName="products" />
+  <div>Patterns</div>
+  <Grid collectionName="patterns" />
 </Layout>
 
 <style>
-  html {
-    --background: #ffffff;
-  }
-
-  .items-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-  }
-  .items-grid img {
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 6px;
-  }
-  .item-card:hover img {
-    filter: opacity(0.8);
-  }
-  .item-card {
-    position: relative;
-  }
-  .item-title {
-    display: none;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    text-align: center;
-    font-size: larger;
-    font-weight: 700;
-    color: var(--background);
-    text-shadow: rgb(0, 0, 0) 1px 0 10px;
-  }
-  .item-card:hover .item-title {
-    display: block;
-  }
   img.kitty {
     max-width: 90px;
     border-radius: 6px;
